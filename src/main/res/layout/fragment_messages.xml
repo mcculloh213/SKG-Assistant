@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.MessagesFragment">
+    <com.stfalcon.chatkit.messages.MessagesList
+        android:id="@+id/message_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:outcomingDefaultBubbleColor="?attr/colorPrimary"
+        app:outcomingTimeTextColor="?attr/colorOnPrimary"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/frame_input"/>
+    <FrameLayout
+        android:id="@+id/frame_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <com.stfalcon.chatkit.messages.MessageInput
+            android:id="@+id/input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:inputButtonDefaultBgColor="?attr/colorSecondary"
+            app:inputButtonDefaultIconColor="?attr/colorOnSecondary"
+            app:inputHint="Send a message..."/>
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
