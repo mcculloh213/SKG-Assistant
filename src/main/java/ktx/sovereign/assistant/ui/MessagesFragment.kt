@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_messages.*
 import ktx.sovereign.assistant.R
 import ktx.sovereign.assistant.data.AssistantViewModel
 import ktx.sovereign.assistant.data.model.Message
+import ktx.sovereign.core.ktx_extension.closeSoftInputKeyboard
 import java.util.*
 
 class MessagesFragment : Fragment(),
@@ -32,12 +33,13 @@ class MessagesFragment : Fragment(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _model = ViewModelProvider(viewModelStore, AssistantViewModel.Factory())
+        _model = ViewModelProvider(viewModelStore, AssistantViewModel.Factory(requireActivity().application))
             .get(AssistantViewModel::class.java)
         _model.latestMessage.observe(this, androidx.lifecycle.Observer {
             val message = it ?: return@Observer
             adapter.addToStart(message, true)
             message.data?.let { uri ->
+                Log.i("DeepLink", "$uri")
                 startActivity(Intent().apply { data = uri })
             }
         })
@@ -51,7 +53,10 @@ class MessagesFragment : Fragment(),
         input.setInputListener(this)
     }
     override fun onSubmit(input: CharSequence?): Boolean {
-        input?.let { _model.sendMessage(it.toString()) }
+        input?.let {
+            _model.sendMessage(it.toString())
+            context?.closeSoftInputKeyboard(activity?.currentFocus)
+        } ?: return false
         return true
     }
     override fun format(date: Date): String = when {

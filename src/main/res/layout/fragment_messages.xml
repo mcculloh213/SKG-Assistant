@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             app:inputButtonDefaultBgColor="?attr/colorSecondary"
             app:inputButtonDefaultIconColor="?attr/colorOnSecondary"
+            app:inputBackground="?attr/colorOnPrimary"
             app:inputHint="Send a message..."/>
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

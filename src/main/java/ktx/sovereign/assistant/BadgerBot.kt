@@ -1,5 +1,6 @@
 package ktx.sovereign.assistant
 
+import android.os.Bundle
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,6 +18,14 @@ class BadgerBot(
             is Result.Success -> response.data
             is Result.Error -> Response(
                 text = response.message
+            )
+        }
+    }
+    suspend fun sendMessage(bundle: Bundle): Response = withContext(coroutineContext) {
+        when (val response = client.message(bundle)) {
+            is Result.Success -> response.data
+            is Result.Error -> Response(
+                    text = response.message
             )
         }
     }
